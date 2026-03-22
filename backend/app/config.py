@@ -65,11 +65,15 @@ class Config:
     
     @classmethod
     def validate(cls):
-        """验证必要配置"""
+        """验证必要配置
+
+        Note: Zep is optional for basic boot (health check + wiring your own UI).
+        Full graph building / simulation features require ZEP_API_KEY.
+        """
         errors = []
         if not cls.LLM_API_KEY:
             errors.append("LLM_API_KEY 未配置")
-        if not cls.ZEP_API_KEY:
-            errors.append("ZEP_API_KEY 未配置")
+        # ZEP_API_KEY is optional for basic startup.
+        # Endpoints that rely on Zep already guard and will return a clear error.
         return errors
 
